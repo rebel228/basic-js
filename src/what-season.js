@@ -47,18 +47,17 @@ let asDate = new Date();
 Object.setPrototypeOf(deeperFakeDate, Object.getPrototypeOf(new Date()));
 
 function getSeason(date) {
-  console.log(date);
+  if(!date) return 'Unable to determine the time of year!';
   try {
     console.log(date.getTime(date));
   }
   catch (error) {
-    throw new NotImplementedError('Invalid date!');
+    throw new Error('Invalid date!');
   }
   if(!date) return 'Unable to determine the time of year!';
   if (isNaN(Date.parse(date))) throw new NotImplementedError('Invalid date!');
   let month = date.getMonth(date);
   let season = '';
-  console.log(month);
   switch (month) {
     case 11:
     case 0:
@@ -81,7 +80,6 @@ function getSeason(date) {
       season = "autumn"
       break;
   }
-  console.log(season);
   return season;
 }
 
