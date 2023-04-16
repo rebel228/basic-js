@@ -13,28 +13,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 let array = [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]], []]]], []]]]]]]]], []]]], []]]]]]]]]]];
+let allResults = [1];
+let result = 1;
 
 class DepthCalculator {
-  calculateDepth(a) {
-    console.log(this);
-    let allResults = [1];
-    let result = 1;
-    function deepCountInside(b) {
-      result++;
-      for (let i = 0; i < b.length; i++) {
-        console.log(this);
-        if (Array.isArray(b[i])) {
-          deepCountInside(b[i]);
-        }
-      }
-      allResults.push(result);
+  calculateDepth(a, first = true) {
+    if(first) {
       result = 1;
+      allResults = [];
     }
     for (let i = 0; i < a.length; i++) {
       if (Array.isArray(a[i])) {
-        deepCountInside(a[i]);
+        result++
+        calculateDepth(a[i], false);
       }
     }
+    allResults.push(result);
+    result = 1;
     return Math.max(...allResults);
   }
 }
