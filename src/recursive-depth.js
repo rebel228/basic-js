@@ -25,7 +25,7 @@ class DepthCalculator {
     for (let i = 0; i < a.length; i++) {
       if (Array.isArray(a[i])) {
         result++
-        calculateDepth(a[i], false);
+        this.calculateDepth(a[i], false);
       }
     }
     allResults.push(result);
