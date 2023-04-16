@@ -10,11 +10,6 @@ const { NotImplementedError } = require('../extensions/index.js');
  * @return {Array<Array>}
  *
  * @example
- * matrix = [
- *  [true, false, false],
- *  [false, true, false],
- *  [false, false, false]
- * ]
  *
  * The result should be following:
  * [
@@ -23,9 +18,41 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+
+let matrix = [
+[true, false, false],
+[false, true, false],
+[false, false, false]
+];
+
+function minesweeper(matrix) {
+  let resultMatrix = [];
+  for (let i = 0; i < matrix.length; i++) {
+    resultMatrix[i] = matrix[i].slice();
+  }
+  for (let i = 0; i < resultMatrix.length; i++) {
+    for (let j = 0; j < resultMatrix[i].length; j++) {
+      let count = 0;
+      let ajacent = [];
+      if (i > 0) {
+        ajacent.push(matrix[i-1][j]);
+        if (j > 0) ajacent.push(matrix[i-1][j-1]);
+        if (j < matrix.length - 1) ajacent.push(matrix[i-1][j+1]);
+      }
+      if (i < matrix.length - 1) {
+        ajacent.push(matrix[i+1][j]);
+        if (j > 0) ajacent.push(matrix[i+1][j-1]);
+        if (j < matrix.length - 1) ajacent.push(matrix[i+1][j+1]);
+      }
+      if (j > 0) ajacent.push(matrix[i][j-1]);
+      if (j < matrix.length - 1) ajacent.push(matrix[i][j+1]);
+      for (let k = 0; k < ajacent.length; k++) {
+        if (ajacent[k] === true) count++;
+      }
+      resultMatrix[i][j] = count;
+    }
+  }
+  return resultMatrix;
 }
 
 module.exports = {
